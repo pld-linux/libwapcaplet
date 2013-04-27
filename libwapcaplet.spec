@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
-#
+
 Summary:	String internment library
 Name:		libwapcaplet
 Version:	0.2.0
@@ -10,6 +10,7 @@ License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
 # Source0-md5:	9e0d838365e72d67723c96e0d315f73a
+Patch0:		lib.patch
 URL:		http://www.netsurf-browser.org/projects/libwapcaplet/
 BuildRequires:	netsurf-buildsystem
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -31,8 +32,8 @@ This is the libraries, include files and other resources you can use
 to incorporate libwapcaplet into applications.
 
 %description devel -l pl.UTF-8
-Pliki nagłówkowe pozwalające na używanie biblioteki libwapcaplet
-w swoich programach.
+Pliki nagłówkowe pozwalające na używanie biblioteki libwapcaplet w
+swoich programach.
 
 %package static
 Summary:	libwapcaplet static libraries
@@ -48,6 +49,7 @@ Statyczna biblioteka libwapcaplet.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} PREFIX=%{_prefix} COMPONENT_TYPE=lib-shared Q='' \
@@ -59,19 +61,18 @@ Statyczna biblioteka libwapcaplet.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
+%{__make} install Q='' \
+	lib=%{_lib} \
 	PREFIX=%{_prefix} \
 	COMPONENT_TYPE=lib-shared \
-	Q=''
+	DESTDIR=$RPM_BUILD_ROOT \
 
 %if %{with static_libs}
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
+%{__make} install Q='' \
+	lib=%{_lib} \
 	PREFIX=%{_prefix} \
 	COMPONENT_TYPE=lib-static \
-	Q=''
+	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
 %clean
