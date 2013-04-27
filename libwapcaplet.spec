@@ -83,16 +83,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libwapcaplet.so.*.*.*
+%ghost %{_libdir}/libwapcaplet.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
+%{_libdir}/libwapcaplet.so
 %{_includedir}/libwapcaplet
-%{_pkgconfigdir}/*pc
+%{_pkgconfigdir}/libwapcaplet.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libwapcaplet.a
 %endif
+
