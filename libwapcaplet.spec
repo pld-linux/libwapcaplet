@@ -4,15 +4,15 @@
 
 Summary:	String internment library
 Name:		libwapcaplet
-Version:	0.2.0
+Version:	0.2.1
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
-# Source0-md5:	9e0d838365e72d67723c96e0d315f73a
-Patch0:		lib.patch
+# Source0-md5:	c39048f10e99aab81a15022c500931d8
+#Patch0:		lib.patch
 URL:		http://www.netsurf-browser.org/projects/libwapcaplet/
-BuildRequires:	netsurf-buildsystem
+BuildRequires:	netsurf-buildsystem >= 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -49,7 +49,7 @@ Statyczna biblioteka libwapcaplet.
 
 %prep
 %setup -q
-%patch0 -p1
+#%%patch0 -p1
 
 %build
 export CC="%{__cc}"
