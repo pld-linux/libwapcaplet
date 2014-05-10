@@ -3,6 +3,7 @@
 %bcond_without	static_libs	# don't build static library
 
 Summary:	String internment library
+Summary(pl.UTF-8):	Biblioteka do więzienia łańcuchów znaków
 Name:		libwapcaplet
 Version:	0.2.1
 Release:	1
@@ -16,9 +17,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 LibWapcaplet is a string internment library, written in C. It provides
-reference counted string interment and rapid string comparison
+reference counted string internment and rapid string comparison
 functionality. It was developed as part of the NetSurf project and is
 available for use by other software under the MIT licence.
+
+%description -l pl.UTF-8
+LibWapcaplet to napisana w C biblioteka do więzienia łańcuchów znaków.
+Umożliwia więzienie łańcuchów ze zliczaniem odwołań oraz ekspresowe
+porównywanie. Biblioteka powstała jako część projektu NetSurf i może
+być używana w innych programach na licencji MIT.
 
 %package devel
 Summary:	libwapcaplet library headers
@@ -27,21 +34,21 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This is the libraries, include files and other resources you can use
-to incorporate libwapcaplet into applications.
+This package contains the include files and other resources you can
+use to incorporate libwapcaplet into applications.
 
 %description devel -l pl.UTF-8
 Pliki nagłówkowe pozwalające na używanie biblioteki libwapcaplet w
 swoich programach.
 
 %package static
-Summary:	libwapcaplet static libraries
-Summary(pl.UTF-8):	Statyczne biblioteki libwapcaplet
+Summary:	libwapcaplet static library
+Summary(pl.UTF-8):	Statyczna biblioteka libwapcaplet
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
-This is package with static libwapcaplet libraries.
+This is package with static libwapcaplet library.
 
 %description static -l pl.UTF-8
 Statyczna biblioteka libwapcaplet.
@@ -54,28 +61,34 @@ export CC="%{__cc}"
 export CFLAGS="%{rpmcflags}"
 export LDFLAGS="%{rpmldflags}"
 
-%{__make} Q= \
+%{__make} \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-shared
 
 %if %{with static_libs}
-%{__make}  Q= \
+%{__make} \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-static
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install Q= \
-	lib=%{_lib} \
+%{__make} install \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-shared \
 	DESTDIR=$RPM_BUILD_ROOT \
 
 %if %{with static_libs}
-%{__make} install Q= \
-	lib=%{_lib} \
+%{__make} install \
+	Q= \
 	PREFIX=%{_prefix} \
+	LIBDIR=%{_lib} \
 	COMPONENT_TYPE=lib-static \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
@@ -88,12 +101,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc COPYING README
 %attr(755,root,root) %{_libdir}/libwapcaplet.so.*.*.*
-%ghost %{_libdir}/libwapcaplet.so.0
+%attr(755,root,root) %ghost %{_libdir}/libwapcaplet.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/libwapcaplet.so
+%attr(755,root,root) %{_libdir}/libwapcaplet.so
 %{_includedir}/libwapcaplet
 %{_pkgconfigdir}/libwapcaplet.pc
 
@@ -102,4 +116,3 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libwapcaplet.a
 %endif
-
