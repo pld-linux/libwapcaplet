@@ -1,0 +1,11 @@
+--- libwapcaplet-0.2.1/Makefile~	2014-04-17 15:31:40.000000000 +0200
++++ libwapcaplet-0.2.1/Makefile	2014-10-09 08:21:05.987216066 +0200
+@@ -18,7 +18,7 @@
+ 	-Wmissing-declarations -Wnested-externs
+ # BeOS/Haiku standard library headers issue warnings
+ ifneq ($(TARGET),beos)
+-  WARNFLAGS := $(WARNFLAGS) -Werror
++  WARNFLAGS := $(WARNFLAGS)
+ endif
+ CFLAGS := -D_BSD_SOURCE -I$(CURDIR)/include/ \
+ 	-I$(CURDIR)/src $(WARNFLAGS) $(CFLAGS)
