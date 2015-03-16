@@ -1,9 +1,9 @@
---- libwapcaplet-0.2.1/Makefile~	2014-04-17 15:31:40.000000000 +0200
-+++ libwapcaplet-0.2.1/Makefile	2014-10-09 08:21:05.987216066 +0200
-@@ -18,7 +18,7 @@
+--- libwapcaplet-0.2.2/Makefile.orig	2015-03-16 11:53:38.726130704 +0100
++++ libwapcaplet-0.2.2/Makefile	2015-03-16 11:54:43.132448452 +0100
+@@ -18,7 +18,7 @@ WARNFLAGS := -Wall -W -Wundef -Wpointer-
  	-Wmissing-declarations -Wnested-externs
  # BeOS/Haiku standard library headers issue warnings
- ifneq ($(TARGET),beos)
+ ifneq ($(BUILD),i586-pc-haiku)
 -  WARNFLAGS := $(WARNFLAGS) -Werror
 +  WARNFLAGS := $(WARNFLAGS)
  endif
