@@ -5,15 +5,15 @@
 Summary:	String internment library
 Summary(pl.UTF-8):	Biblioteka do więzienia łańcuchów znaków
 Name:		libwapcaplet
-Version:	0.2.2
+Version:	0.3.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
-# Source0-md5:	20c3f9b40e88d46b4f0b837735fcb0ea
+# Source0-md5:	aa39f3b2c0066d385797d06be6cae49a
 Patch0:		%{name}-build.patch
 URL:		http://www.netsurf-browser.org/projects/libwapcaplet/
-BuildRequires:	netsurf-buildsystem >= 1.3
+BuildRequires:	netsurf-buildsystem >= 1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,12 +56,13 @@ Statyczna biblioteka libwapcaplet.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 %build
 export CC="%{__cc}"
 export CFLAGS="%{rpmcflags} %{rpmcppflags}"
 export LDFLAGS="%{rpmldflags}"
+export AR="%{__ar}"
 
 %{__make} \
 	Q= \
@@ -78,6 +79,11 @@ export LDFLAGS="%{rpmldflags}"
 %endif
 
 %install
+export CC="%{__cc}"
+export CFLAGS="%{rpmcflags} %{rpmcppflags}"
+export LDFLAGS="%{rpmldflags}"
+export AR="%{__ar}"
+
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	Q= \
