@@ -5,14 +5,14 @@
 Summary:	String internment library
 Summary(pl.UTF-8):	Biblioteka do więzienia łańcuchów znaków
 Name:		libwapcaplet
-Version:	0.4.0
+Version:	0.4.1
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src.tar.gz
-# Source0-md5:	de18bf36bcccdd17051434ab5e9c1bb9
+# Source0-md5:	fc46f9b9c1e7ad432eda74c0fa38e45d
 URL:		http://www.netsurf-browser.org/projects/libwapcaplet/
-BuildRequires:	netsurf-buildsystem >= 1.5
+BuildRequires:	netsurf-buildsystem >= 1.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
