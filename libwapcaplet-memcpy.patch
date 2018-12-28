@@ -1,0 +1,38 @@
+--- libwapcaplet-0.4.1/src/libwapcaplet.c.orig	2018-12-28 05:38:25.523287642 +0100
++++ libwapcaplet-0.4.1/src/libwapcaplet.c	2018-12-28 05:45:37.209286994 +0100
+@@ -47,7 +47,7 @@
+ 
+ typedef lwc_hash (*lwc_hasher)(const char *, size_t);
+ typedef int (*lwc_strncmp)(const char *, const char *, size_t);
+-typedef void (*lwc_memcpy)(char *, const char *, size_t);
++typedef void *(*lwc_memcpy)(void *, const void *, size_t);
+ 
+ static lwc_error
+ lwc__initialise(void)
+@@ -145,7 +145,7 @@
+ {
+ 	return lwc__intern(s, slen, ret,
+ 			   lwc__calculate_hash,
+-			   strncmp, (lwc_memcpy)memcpy);
++			   strncmp, memcpy);
+ }
+ 
+ lwc_error
+@@ -238,12 +238,15 @@
+ 	return 0;
+ }
+ 
+-static void
+-lwc__lcase_memcpy(char *target, const char *source, size_t n)
++static void *
++lwc__lcase_memcpy(void *targetp, const void *sourcep, size_t n)
+ {
++        char *target = targetp;
++	const char *source = sourcep;
+ 	while (n--) {
+ 		*target++ = lwc__dolower(*source++);
+ 	}
++	return targetp;
+ }
+ 
+ lwc_error
